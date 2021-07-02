@@ -1,7 +1,27 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late Timer _timer;
+  int _number = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _number = _timer.tick;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +33,16 @@ class Home extends StatelessWidget {
       body: SafeArea(
           child: Center(
         child: Text(
-          'Hello, Omar!',
-          style: TextStyle(fontSize: 25),
+          '$_number',
+          style: TextStyle(fontSize: 35),
         ),
       )),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 }
