@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_hooks_app/src/hooks/timer_hook.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -69,6 +70,26 @@ class HomePageHook extends HookWidget {
           child: Center(
         child: Text(
           _numberNotifier.value.toString(),
+          style: TextStyle(fontSize: 35),
+        ),
+      )),
+    );
+  }
+}
+
+class HomePageCustomHook extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final number = useInfiniteTimer(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter HOokS!'),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+          child: Center(
+        child: Text(
+          number.toString(),
           style: TextStyle(fontSize: 35),
         ),
       )),
